@@ -19,11 +19,12 @@ enregistrer_etat_processus() {
 
 detecter_anomalies() {
     while true; do
-        while read -r line; do
+        mapfile -t lignes < journalEtatProcessus.txt
+        for line in "${lignes[@]}"; do
             if [[ $line == *"USER"* ]]; then
                 continue
             fi
-
+            
             pid=$(echo "$line" | awk '{print $2}')
             comm=$(echo "$line" | awk '{print $11}')
             user=$(echo "$line" | awk '{print $1}')
@@ -31,9 +32,11 @@ detecter_anomalies() {
 
             if (( $(echo "$cpu > 80" | bc -l) )); then
                 echo "$(date) - Anomalie : Utilisation CPU élevée - PID: $pid, Processus: $comm, Utilisateur: $user, CPU: $cpu%" >> journalEtatProcessus.txt
-                gerer_anomalie "$pid" "$comm" "$user" "$cpu" "Utilisation CPU élevée"
+                if [[ $user != "root" ]]; then
+                    gerer_anomalie "$pid" "$comm" "$user" "$cpu" "Utilisation CPU élevée"
+                fi
             fi
-        done < journalEtatProcessus.txt
+        done
         sleep "$temps"
     done
 }
@@ -51,14 +54,26 @@ gerer_anomalie() {
     echo "1. Tuer le processus"
     echo "2. Baisser la priorité (renice)"
     echo "3. Ignorer"
+
     read -p "Entrez votre choix (1/2/3) : " choix
+    echo "Vous avez choisi : $choix"
 
     case "$choix" in
         1)
+            echo "Tentative de tuer le processus $pid..."
             echo "Sauvegarde des informations du processus $pid avant de le tuer..."
             ps -p "$pid" -o pid,comm,user,%mem,%cpu,state >> /var/log/process_suspects.log
-            kill "$pid"
-            echo "Processus $pid tué." >> journalEtatProcessus.txt
+            
+            # Vérifier si le processus existe avant de le tuer
+            if kill -0 "$pid" 2>/dev/null; then
+                kill "$pid"
+                if [[ ! -e /var/log/process_monitor.log ]]; then
+                    touch /var/log/process_monitor.log
+                fi
+                echo "Processus $pid tué." >> /var/log/process_monitor.log
+            else
+                echo "Le processus $pid n'existe plus." >> /var/log/process_monitor.log
+            fi
             ;;
         2)
             renice 10 "$pid"
@@ -70,8 +85,9 @@ gerer_anomalie() {
         *)
             echo "Choix invalide." >> journalEtatProcessus.txt
             ;;
-    esac
+    esac    
 }
+
 
 enregistrer_etat_processus &
 detecter_anomalies &
