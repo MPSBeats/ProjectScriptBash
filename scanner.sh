@@ -59,8 +59,6 @@ gerer_anomalie() {
             echo "Tentative de tuer le processus $pid..."
             echo "Sauvegarde des informations du processus $pid avant de le tuer..."
             ps -p "$pid" -o pid,comm,user,%mem,%cpu,state >> /var/log/process_suspects.log
-            
-            # Vérifier si le processus existe avant de le tuer
             if kill -0 "$pid" 2>/dev/null; then
                 kill -9 "$pid"
                 if [[ ! -e /var/log/process_monitor.log ]]; then
