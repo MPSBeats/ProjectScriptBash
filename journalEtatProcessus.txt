@@ -1,0 +1,14 @@
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0   1812  1184 ?        Sl   09:29   0:00 /init
+root        10  0.0  0.0   1812    84 ?        Ss   09:29   0:00 /init
+root        11  0.0  0.0   1812    92 ?        S    09:29   0:00 /init
+root        12  0.0  0.0   4748  3200 pts/0    Ss+  09:29   0:00 /bin/bash -c cloud-init status --wait >/dev/null 2>&1
+root        13  0.1  0.4  46052 38512 pts/0    S+   09:29   0:01 /usr/bin/python3 /usr/bin/cloud-init status --wait
+root        15  0.0  0.0   1812    92 ?        Ss   09:38   0:00 /init
+root        16  0.0  0.0   1812    92 ?        S    09:38   0:00 /init
+root        17  0.0  0.0   6200  5448 pts/1    Ss   09:38   0:00 -bash
+root       128  0.0  0.0   4880  3460 pts/1    S+   09:47   0:00 bash scan.sh
+root       129  0.0  0.0   4880  2008 pts/1    S+   09:47   0:00 bash scan.sh
+root       131  0.0  0.0   4880  2340 pts/1    S+   09:47   0:00 bash scan.sh
+root       292  0.0  0.0   3120  1056 pts/1    S+   09:47   0:00 sleep 10
+root       293  0.0  0.0   8276  4248 pts/1    R+   09:47   0:00 ps aux

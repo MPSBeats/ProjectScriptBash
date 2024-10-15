@@ -1,8 +1,6 @@
 #!/bin/bash
-
-echo "Entrez le temps d'intervalle des sauvegardes des états des processus (en secondes) :"
+echo "Entrez le temps dintervalle des sauvegardes des états des processus (en secondes)"
 read temps
-
 if [[ -e journalEtatProcessus.txt ]]; then
     echo "Le fichier de sauvegarde est déjà existant (journalEtatProcessus.txt)"
 else 
@@ -23,9 +21,7 @@ detecter_anomalies() {
         for line in "${lignes[@]}"; do
             if [[ $line == *"USER"* ]]; then
                 continue
-            fi
-            
-            pid=$(echo "$line" | awk '{print $2}')
+            fi  
             comm=$(echo "$line" | awk '{print $11}')
             user=$(echo "$line" | awk '{print $1}')
             cpu=$(echo "$line" | awk '{print $3}')
@@ -66,7 +62,7 @@ gerer_anomalie() {
             
             # Vérifier si le processus existe avant de le tuer
             if kill -0 "$pid" 2>/dev/null; then
-                kill "$pid"
+                kill -9 "$pid"
                 if [[ ! -e /var/log/process_monitor.log ]]; then
                     touch /var/log/process_monitor.log
                 fi
@@ -87,7 +83,6 @@ gerer_anomalie() {
             ;;
     esac    
 }
-
 
 enregistrer_etat_processus &
 detecter_anomalies &
