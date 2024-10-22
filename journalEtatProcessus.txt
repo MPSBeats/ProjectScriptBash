@@ -1,9 +1,0 @@
-USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-0            1  0.0  0.0   1812  1188 ?        Sl   14:47   0:00 /init
-0            6  0.0  0.0   1812    96 ?        Ss   14:47   0:00 /init
-0            7  0.0  0.0   1812    96 ?        S    14:47   0:00 /init
-0            8  0.0  0.0   4320  3036 pts/0    Ss+  14:47   0:00 /bin/bash scanner.sh
-0            9  0.0  0.0   4320  1992 pts/0    S+   14:47   0:00 /bin/bash scanner.sh
-0           10  0.0  0.0   4448  2308 pts/0    S+   14:47   0:00 /bin/bash scanner.sh
-0          640  0.0  0.0   2692   272 pts/0    S+   14:47   0:00 sleep 10
-0          641  0.0  0.0   7884  3644 pts/0    R+   14:47   0:00 ps aux
