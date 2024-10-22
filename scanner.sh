@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "Entrez le temps dintervalle des sauvegardes des états des processus (en secondes)"
 read temps
 if [[ -e journalEtatProcessus.txt ]]; then
@@ -12,22 +13,25 @@ enregistrer_etat_processus() {
     while true; do
         ps aux > journalEtatProcessus.txt
         sleep "$temps"
+        echo "sauvgarde du journal"
     done
 }
 
 detecter_anomalies() {
+    echo "détection en cours";
     while true; do
         mapfile -t lignes < journalEtatProcessus.txt
         for line in "${lignes[@]}"; do
             if [[ $line == *"USER"* ]]; then
                 continue
             fi  
+            pid=$(echo "$line" | awk '{print $2}')
             comm=$(echo "$line" | awk '{print $11}')
             user=$(echo "$line" | awk '{print $1}')
             cpu=$(echo "$line" | awk '{print $3}')
 
             if (( $(echo "$cpu > 80" | bc -l) )); then
-                echo "$(date) - Anomalie : Utilisation CPU élevée - PID: $pid, Processus: $comm, Utilisateur: $user, CPU: $cpu%" >> journalEtatProcessus.txt
+                echo "$(date) - Anomalie : Utilisation CPU élevée - PID: $pid, Processus: $comm, Utilisateur: $user, CPU: $cpu%" > journalEtatProcessus.txt
                 if [[ $user != "root" ]]; then
                     gerer_anomalie "$pid" "$comm" "$user" "$cpu" "Utilisation CPU élevée"
                 fi
