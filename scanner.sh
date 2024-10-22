@@ -56,9 +56,8 @@ gerer_anomalie() {
     echo "3. Ignorer"
 
     echo "Entrez votre choix (1/2/3) : "
-    read choix
+    read choix  < /dev/tty
     
-    sleep 10000
 
     if [[ "$choix" =~ ^[1-3]$ ]]; then
         echo "Vous avez choisi : $choix"
@@ -67,25 +66,30 @@ gerer_anomalie() {
             1)
                 echo "Tentative de tuer le processus $pid..."
                 echo "Sauvegarde des informations du processus $pid avant de le tuer..."
-                ps -p "$pid" -o pid,comm,user,%mem,%cpu,state >> /var/log/process_suspects.log
+                ps -p "$pid" -o pid,comm,user,%mem,%cpu,state >> "$HOME/process_suspects.log"
                 if kill -0 "$pid" 2>/dev/null; then
                     kill -9 "$pid"
-                    if [[ ! -e /var/log/process_monitor.log ]]; then
-                        touch /var/log/process_monitor.log
+                    if [[ ! -e "$HOME/process_monitor.log" ]]; then
+                        touch "$HOME/process_monitor.log"
                     fi
-                    echo "Processus $pid tué." >> /var/log/process_monitor.log
+                    echo "Processus $pid tué."
+                    echo "Processus $pid tué." >> "$HOME/process_monitor.log"
                 else
-                    echo "Le processus $pid n'existe plus." >> /var/log/process_monitor.log
+                    echo "Le processus $pid n'existe plus."
+                    echo "Le processus $pid n'existe plus." >> "$HOME/process_monitor.log"
                 fi
                 ;;
             2)
                 renice 10 "$pid"
+                echo "Priorité du processus $pid baissée."
                 echo "Priorité du processus $pid baissée." >> journalEtatProcessus.txt
                 ;;
             3)
+                echo "Processus $pid ignoré."
                 echo "Processus $pid ignoré." >> journalEtatProcessus.txt
                 ;;
             *)
+                echo "Choix invalide."
                 echo "Choix invalide." >> journalEtatProcessus.txt
                 ;;
         esac    
