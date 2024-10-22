@@ -1,5 +1,6 @@
 #!/bin/bash
 
+<<<<<<< HEAD
 echo "Entrez le temps dintervalle des sauvegardes des états des processus (en secondes)"
 read temps
 if [[ -e journalEtatProcessus.txt ]]; then
@@ -101,3 +102,10 @@ enregistrer_etat_processus &
 detecter_anomalies &
 
 wait
+=======
+echo "A partir de quelle pourcentage de consommation du CPU souhaitez vous créer une alerte ?"
+read utilisation
+
+touch journalEtatProcessus.txt
+ps aux > journalEtatProcessus.txt
+>>>>>>> 9539ab4fb02c749dffd674707f364417d5944e70
