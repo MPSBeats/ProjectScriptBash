@@ -55,7 +55,8 @@ gerer_anomalie() {
     echo "2. Baisser la priorité (renice)"
     echo "3. Ignorer"
 
-    read -p "Entrez votre choix (1/2/3) : " choix
+    echo "Entrez votre choix (1/2/3) : "
+    read choix
     echo "Vous avez choisi : $choix"
 
     case "$choix" in
