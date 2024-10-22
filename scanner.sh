@@ -57,8 +57,10 @@ gerer_anomalie() {
 
     echo "Entrez votre choix (1/2/3) : "
     read choix
+    
+    sleep 10000
 
-    if (($choix!=null || $choix!=""));then
+    if [[ "$choix" =~ ^[1-3]$ ]]; then
         echo "Vous avez choisi : $choix"
 
         case "$choix" in
