@@ -14,6 +14,7 @@ fi
 #Création du fichier process_suspects.log si non existant
 if [[ -e process_suspects.log ]]; then
     echo "Le fichier process_suspects.log est déjà existant"
+    echo "" > process_suspects.log
 else 
     touch process_suspects.log
     echo "Fichier process_suspects.log créé "
