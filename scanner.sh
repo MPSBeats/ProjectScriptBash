@@ -1,6 +1,5 @@
 #!/bin/bash
 
-<<<<<<< HEAD
 echo "Entrez le temps dintervalle des sauvegardes des états des processus (en secondes)"
 read temps
 if [[ -e journalEtatProcessus.txt ]]; then
@@ -8,6 +7,13 @@ if [[ -e journalEtatProcessus.txt ]]; then
 else 
     touch journalEtatProcessus.txt
     echo "Fichier de sauvegarde créé (journalEtatProcessus.txt)"
+fi
+
+if [[ -e process_suspects.log ]]; then
+    echo "Le fichier process_suspects.log est déjà existant"
+else 
+    touch process_suspects.log
+    echo "Fichier process_suspects.log créé "
 fi
 
 enregistrer_etat_processus() {
@@ -67,31 +73,31 @@ gerer_anomalie() {
             1)
                 echo "Tentative de tuer le processus $pid..."
                 echo "Sauvegarde des informations du processus $pid avant de le tuer..."
-                ps -p "$pid" -o pid,comm,user,%mem,%cpu,state >> "$HOME/process_suspects.log"
+                ps -p "$pid" -o pid,comm,user,%mem,%cpu,state >> "process_suspects.log"
                 if kill -0 "$pid" 2>/dev/null; then
                     kill -9 "$pid"
-                    if [[ ! -e "$HOME/process_monitor.log" ]]; then
-                        touch "$HOME/process_monitor.log"
+                    if [[ ! -e "process_suspects.log" ]]; then
+                        touch "process_suspects.log"
                     fi
                     echo "Processus $pid tué."
-                    echo "Processus $pid tué." >> "$HOME/process_monitor.log"
+                    echo "Processus $pid tué." >> "process_suspects.log"
                 else
                     echo "Le processus $pid n'existe plus."
-                    echo "Le processus $pid n'existe plus." >> "$HOME/process_monitor.log"
+                    echo "Le processus $pid n'existe plus." >> "process_suspects.log"
                 fi
                 ;;
             2)
                 renice 10 "$pid"
                 echo "Priorité du processus $pid baissée."
-                echo "Priorité du processus $pid baissée." >> journalEtatProcessus.txt
+                echo "Priorité du processus $pid baissée." >> "process_suspects.log"
                 ;;
             3)
                 echo "Processus $pid ignoré."
-                echo "Processus $pid ignoré." >> journalEtatProcessus.txt
+                echo "Processus $pid ignoré." >> "process_suspects.log"
                 ;;
             *)
                 echo "Choix invalide."
-                echo "Choix invalide." >> journalEtatProcessus.txt
+                echo "Choix invalide." >> "process_suspects.log"
                 ;;
         esac    
     fi
@@ -102,10 +108,3 @@ enregistrer_etat_processus &
 detecter_anomalies &
 
 wait
-=======
-echo "A partir de quelle pourcentage de consommation du CPU souhaitez vous créer une alerte ?"
-read utilisation
-
-touch journalEtatProcessus.txt
-ps aux > journalEtatProcessus.txt
->>>>>>> 9539ab4fb02c749dffd674707f364417d5944e70
