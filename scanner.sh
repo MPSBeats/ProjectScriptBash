@@ -2,6 +2,8 @@
 
 echo "Entrez le temps dintervalle des sauvegardes des états des processus (en secondes)"
 read temps
+
+#Création du fichier journalEtatProcessus.txt si non existant
 if [[ -e journalEtatProcessus.txt ]]; then
     echo "Le fichier de sauvegarde est déjà existant (journalEtatProcessus.txt)"
 else 
@@ -9,6 +11,7 @@ else
     echo "Fichier de sauvegarde créé (journalEtatProcessus.txt)"
 fi
 
+#Création du fichier process_suspects.log si non existant
 if [[ -e process_suspects.log ]]; then
     echo "Le fichier process_suspects.log est déjà existant"
 else 
@@ -18,7 +21,7 @@ fi
 
 enregistrer_etat_processus() {
     while true; do
-        ps aux > journalEtatProcessus.txt
+        ps aux > journalEtatProcessus.txt   #Enregistre tout les $temps dans le journal le aux
         sleep "$temps"
         echo "sauvgarde du journal"
     done
@@ -27,7 +30,7 @@ enregistrer_etat_processus() {
 detecter_anomalies() {
     echo "détection en cours";
     while true; do
-        mapfile -t lignes < journalEtatProcessus.txt
+        mapfile -t lignes < journalEtatProcessus.txt    #Chaque ligne du aux
         for line in "${lignes[@]}"; do
             if [[ $line == *"USER"* ]]; then
                 continue
@@ -37,11 +40,17 @@ detecter_anomalies() {
             user=$(echo "$line" | awk '{print $1}')
             cpu=$(echo "$line" | awk '{print $3}')
 
-            if (( $(echo "$cpu > 80" | bc -l) )); then
-                echo "$(date) - Anomalie : Utilisation CPU élevée - PID: $pid, Processus: $comm, Utilisateur: $user, CPU: $cpu%" >> process_suspects.log
+            if (( $(echo "$cpu > 80" | bc -l) )); then  #Détection si cpu trop élevé
+                echo "$(date) - Anomalie : Utilisation CPU élevée - PID: $pid, Processus: $comm, Utilisateur: $user, CPU: $cpu%" > journalEtatProcessus.txt
                 if [[ $user != "root" ]]; then
                     gerer_anomalie "$pid" "$comm" "$user" "$cpu" "Utilisation CPU élevée"
                 fi
+            elif [[ $(echo "$line" | awk '{print $8}') == "Z" ]]; then  #Détection si process zombie
+                echo "$(date) - Anomalie : Processus zombie détecté - PID: $pid, Processus: $comm, Utilisateur: $user" >> journalEtatProcessus.txt
+                if [[ $user != "root" ]]; then
+                    gerer_anomalie "$pid" "$comm" "$user" "$cpu" "Processus zombie détecté"
+                fi
+                
             fi
         done
         sleep "$temps"
@@ -63,7 +72,7 @@ gerer_anomalie() {
     echo "3. Ignorer"
 
     echo "Entrez votre choix (1/2/3) : "
-    read choix  < /dev/tty
+    read choix  < /dev/tty  #choix de l'utilisateur pour l'action à prendre
     
 
     if [[ "$choix" =~ ^[1-3]$ ]]; then
@@ -74,8 +83,8 @@ gerer_anomalie() {
                 echo "Tentative de tuer le processus $pid..."
                 echo "Sauvegarde des informations du processus $pid avant de le tuer..."
                 ps -p "$pid" -o pid,comm,user,%mem,%cpu,state >> "process_suspects.log"
-                if kill -0 "$pid" 2>/dev/null; then
-                    kill -9 "$pid"
+                if kill -0 "$pid" 2>/dev/null; then #On regarde si le process existe toujours
+                    kill -9 "$pid"  #Si oui on le tue
                     if [[ ! -e "process_suspects.log" ]]; then
                         touch "process_suspects.log"
                     fi
@@ -87,7 +96,7 @@ gerer_anomalie() {
                 fi
                 ;;
             2)
-                renice 10 "$pid"
+                renice 10 "$pid"    #renice du process
                 echo "Priorité du processus $pid baissée."
                 echo "Priorité du processus $pid baissée." >> "process_suspects.log"
                 ;;
