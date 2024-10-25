@@ -114,7 +114,19 @@ gerer_anomalie() {
 
 }
 
+generer_rapport_quotidien() {
+    local rapport="rapport_quotidien_$(date +%Y-%m-%d).log"
+    echo "Rapport quotidien pour le $(date +%Y-%m-%d)" > "$rapport"
+    echo "----------------------------------------" >> "$rapport"
+    cat process_suspects.log >> "$rapport"
+    echo "Rapport généré : $rapport"
+}
+
+# Appel des fonctions en parallèle
 enregistrer_etat_processus &
 detecter_anomalies &
 
 wait
+
+# Appel de la fonction pour générer le rapport quotidien
+generer_rapport_quotidien

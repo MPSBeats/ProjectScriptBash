@@ -1,0 +1,54 @@
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  2.0  0.1 165948 11100 ?        Ss   09:58   1:58 /sbin/init
+root           2  0.0  0.0   2616  1508 ?        Sl   09:58   0:00 /init
+root           6  0.0  0.0   2652   140 ?        Sl   09:58   0:00 plan9 --control-socket 7 --log-level 4 --server-fd 8 --pipe-fd 10 --log-truncate
+root          38  0.0  0.1  47820 15572 ?        S<s  09:58   0:00 /lib/systemd/systemd-journald
+root          59  0.0  0.0  21968  5840 ?        Ss   09:58   0:01 /lib/systemd/systemd-udevd
+root          71  0.0  0.0 152992  2236 ?        Ssl  09:58   0:00 snapfuse /var/lib/snapd/snaps/bare_5.snap /snap/bare/5 -o ro,nodev,allow_other,suid
+root          75  0.0  0.0 152992  2228 ?        Ssl  09:58   0:00 snapfuse /var/lib/snapd/snaps/core22_1612.snap /snap/core22/1612 -o ro,nodev,allow_other,suid
+root          76  0.0  0.1 377284 11488 ?        Ssl  09:58   0:00 snapfuse /var/lib/snapd/snaps/core22_1621.snap /snap/core22/1621 -o ro,nodev,allow_other,suid
+root          83  0.0  0.0 153124  2212 ?        Ssl  09:58   0:00 snapfuse /var/lib/snapd/snaps/gtk-common-themes_1535.snap /snap/gtk-common-themes/1535 -o ro,nodev,allow_other,suid
+root          90  0.0  0.0 152992  2200 ?        Ssl  09:58   0:00 snapfuse /var/lib/snapd/snaps/snapd_20290.snap /snap/snapd/20290 -o ro,nodev,allow_other,suid
+root          96  0.0  0.1 302520  8888 ?        Ssl  09:58   0:00 snapfuse /var/lib/snapd/snaps/snapd_21759.snap /snap/snapd/21759 -o ro,nodev,allow_other,suid
+root         100  0.0  0.0 152992  2208 ?        Ssl  09:58   0:00 snapfuse /var/lib/snapd/snaps/ubuntu-desktop-installer_1276.snap /snap/ubuntu-desktop-installer/1276 -o ro,nodev,allow_other,suid
+root         105  0.0  0.1 377284 14560 ?        Ssl  09:58   0:01 snapfuse /var/lib/snapd/snaps/ubuntu-desktop-installer_1286.snap /snap/ubuntu-desktop-installer/1286 -o ro,nodev,allow_other,suid
+systemd+     114  0.0  0.1  25664 12624 ?        Ss   09:58   0:00 /lib/systemd/systemd-resolved
+systemd+     115  0.0  0.0  89364  6580 ?        Ssl  09:58   0:00 /lib/systemd/systemd-timesyncd
+root         189  0.0  0.0   4308  2744 ?        Ss   09:58   0:00 /usr/sbin/cron -f -P
+message+     191  0.0  0.0   8592  4540 ?        Ss   09:58   0:00 @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+root         195  0.0  0.2  30108 19112 ?        Ss   09:59   0:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+syslog       196  0.0  0.0 222404  7292 ?        Ssl  09:59   0:00 /usr/sbin/rsyslogd -n -iNONE
+root         201  0.0  0.5 1985344 42844 ?       Ssl  09:59   0:02 /usr/lib/snapd/snapd
+root         202  0.0  0.0  15332  7360 ?        Ss   09:59   0:00 /lib/systemd/systemd-logind
+root         211  0.0  0.0   4784  3368 ?        Ss   09:59   0:00 /bin/bash /snap/ubuntu-desktop-installer/1286/bin/subiquity-server
+root         233  0.0  0.0   3240  1064 hvc0     Ss+  09:59   0:00 /sbin/agetty -o -p -- \u --noclear --keep-baud console 115200,38400,9600 vt220
+root         235  0.0  0.0   3196  1084 tty1     Ss+  09:59   0:00 /sbin/agetty -o -p -- \u --noclear tty1 linux
+root         247  0.0  0.2 107228 21156 ?        Ssl  09:59   0:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+root         278  0.2  1.1 1295264 88496 ?       Sl   09:59   0:13 /snap/ubuntu-desktop-installer/1286/usr/bin/python3.10 -m subiquity.cmd.server --use-os-prober --storage-version=2 --postinst-hooks-dir=/snap/ubuntu-desktop-installer/1286/etc/subiquity/postinst.d
+root         332  0.0  0.0   7532  4892 pts/1    Ss   09:59   0:00 /bin/login -f
+arthur       360  0.0  0.1  16912  8984 ?        Ss   09:59   0:00 /lib/systemd/systemd --user
+arthur       362  0.0  0.0 169156  3532 ?        S    09:59   0:00 (sd-pam)
+arthur       367  0.0  0.0   7636  5944 pts/1    S+   09:59   0:00 -zsh
+root         368  0.0  0.0   2616   124 ?        Ss   09:59   0:00 /init
+root         369  0.0  0.0   2616   124 ?        S    09:59   0:00 /init
+arthur       370  0.0  0.0   2892   952 pts/0    Ss+  09:59   0:00 sh -c "$VSCODE_WSL_EXT_LOCATION/scripts/wslServer.sh" 384ff7382de624fb94dbaf6da11977bba1ecd427 stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=1135794320-254823923-4111210145-3450421422 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+arthur       372  0.0  0.0   2892   932 pts/0    S+   09:59   0:00 sh /mnt/c/Users/arthu/.vscode/extensions/ms-vscode-remote.remote-wsl-0.88.4/scripts/wslServer.sh 384ff7382de624fb94dbaf6da11977bba1ecd427 stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=1135794320-254823923-4111210145-3450421422 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+arthur       386  0.0  0.0   2892   968 pts/0    S+   09:59   0:00 sh /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/bin/code-server --host=127.0.0.1 --port=0 --connection-token=1135794320-254823923-4111210145-3450421422 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+arthur       393  0.5  1.3 11819432 109452 pts/0 Rl+  09:59   0:33 /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/node /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/out/server-main.js --host=127.0.0.1 --port=0 --connection-token=1135794320-254823923-4111210145-3450421422 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+root         568  0.9  0.4  44172 37936 ?        S    09:59   0:55 python3 /snap/ubuntu-desktop-installer/1286/usr/bin/cloud-init status --wait
+arthur       906  0.3  0.9 11742304 79196 pts/0  Sl+  09:59   0:20 /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/node /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/out/bootstrap-fork --type=ptyHost --logsPath /home/arthur/.vscode-server/data/logs/20241025T092638
+arthur     12852  0.2  0.7 11728088 62696 pts/0  Sl+  10:11   0:12 /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/node /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/out/bootstrap-fork --type=fileWatcher
+arthur     12866  5.2  7.2 34999812 580956 pts/0 Sl+  10:11   4:30 /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/node --dns-result-order=ipv4first /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/out/bootstrap-fork --type=extensionHost --transformURIs --useHostProxy=true
+arthur     17476  0.0  0.6 993432 53984 pts/0    Sl+  10:18   0:00 /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/node /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/extensions/json-language-features/server/dist/node/jsonServerMain --node-ipc --clientProcessId=12866
+arthur     81780  0.0  0.0  11308  7568 pts/6    Ss+  10:40   0:00 /usr/bin/zsh -i
+root      187424  0.0  0.0   2624   124 ?        Ss   11:29   0:00 /init
+root      187425  0.0  0.0   2624   132 ?        S    11:29   0:00 /init
+arthur    187426  0.2  0.5 989272 45860 pts/2    Ssl+ 11:29   0:01 /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/node -e const net = require('net'); process.stdin.pause(); const client = net.createConnection({ host: '127.0.0.1', port: 33375 }, () => { client.pipe(process.stdout); process.stdin.pipe(client); }); client.on('close', function (hadError) { console.error(hadError ? 'Remote close with error' : 'Remote close'); process.exit(hadError ? 1 : 0); }); client.on('error', function (err) { process.stderr.write(err && (err.stack || err.message) || String(err)); });
+root      187433  0.0  0.0   2624   124 ?        Ss   11:29   0:00 /init
+root      187434  0.1  0.0   2624   132 ?        S    11:29   0:00 /init
+arthur    187436  0.4  0.6 989952 49032 pts/3    Ssl+ 11:29   0:01 /home/arthur/.vscode-server/bin/384ff7382de624fb94dbaf6da11977bba1ecd427/node -e const net = require('net'); process.stdin.pause(); const client = net.createConnection({ host: '127.0.0.1', port: 33375 }, () => { client.pipe(process.stdout); process.stdin.pipe(client); }); client.on('close', function (hadError) { console.error(hadError ? 'Remote close with error' : 'Remote close'); process.exit(hadError ? 1 : 0); }); client.on('error', function (err) { process.stderr.write(err && (err.stack || err.message) || String(err)); });
+arthur    187544  0.0  0.0  11344  7544 pts/5    Ss   11:29   0:00 /usr/bin/zsh -i
+arthur    188829  0.0  0.0   4916  3752 pts/5    S+   11:31   0:00 /bin/bash ./scanner.sh
+arthur    188851  0.0  0.0   4916  2424 pts/5    S+   11:31   0:00 /bin/bash ./scanner.sh
+arthur    188852  0.8  0.0   5048  2808 pts/5    S+   11:31   0:02 /bin/bash ./scanner.sh
+arthur    218942  0.0  0.0   7484  3100 pts/5    R+   11:37   0:00 ps aux
