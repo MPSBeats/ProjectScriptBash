@@ -38,7 +38,7 @@ detecter_anomalies() {
             cpu=$(echo "$line" | awk '{print $3}')
 
             if (( $(echo "$cpu > 80" | bc -l) )); then
-                echo "$(date) - Anomalie : Utilisation CPU élevée - PID: $pid, Processus: $comm, Utilisateur: $user, CPU: $cpu%" > journalEtatProcessus.txt
+                echo "$(date) - Anomalie : Utilisation CPU élevée - PID: $pid, Processus: $comm, Utilisateur: $user, CPU: $cpu%" >> process_suspects.log
                 if [[ $user != "root" ]]; then
                     gerer_anomalie "$pid" "$comm" "$user" "$cpu" "Utilisation CPU élevée"
                 fi
