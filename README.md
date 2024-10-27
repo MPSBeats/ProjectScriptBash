@@ -7,8 +7,6 @@ ProjectScriptBash is a comprehensive project entirely written in Shell script. I
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contribution](#contribution)
-- [License](#license)
 
 ## Introduction
 
@@ -62,16 +60,3 @@ The main script, `scanner.sh`, monitors system processes and detects anomalies s
 - **Handle Anomalies:**
     - Choose to kill the process, lower its priority, or ignore it when prompted.
 
-## Contribution
-
-Contributions are welcome! To contribute, follow these steps:
-
-1. Fork the project.
-2. Create a branch for your feature (`git checkout -b feature/AmazingFeature`).
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4. Push your branch (`git push origin feature/AmazingFeature`).
-5. Open a Pull Request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

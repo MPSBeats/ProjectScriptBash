@@ -1,3 +1,7 @@
+
     PID COMMAND         USER     %MEM %CPU S
- 188467 stress          arthur    0.0  102 R
-Processus 188467 tué.
+ 231383 stress          arthur    0.0  107 R
+Processus 231383 tué.
+    PID COMMAND         USER     %MEM %CPU S
+ 237008 stress          arthur    0.0 98.7 R
+Processus 237008 tué.
